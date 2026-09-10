@@ -1,6 +1,6 @@
 {
  "schema_version": "homology-db.chromatic-corpus/3",
- "snapshot_name": "chromatic-gateway-56",
+ "snapshot_name": "chromatic-gateway-191",
  "title": "Chromatic gateway CW corpus",
  "materialized_through_degree": 24,
  "scope": "Fifty-one named CW spaces spanning calibration examples, torsion cofibers, closed surfaces of every genus through six, projective and lens filtrations, Lie and Schubert spaces, cyclic and elementary-abelian classifying spaces, complex orientations, and a universal Thom space. Finite-type formulas are materialized only through degree 24; the snapshot computes ordinary homology and does not claim Morava K-theory or chromatic type calculations.",
