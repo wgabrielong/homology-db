@@ -12,7 +12,7 @@ python3 -m homology_db chromatic demo
 
 Expected headline facts:
 
-- the Snapshot contains exactly 52 named CW spaces in 20 families;
+- the Snapshot contains exactly 52 named CW spaces in 18 families;
 - 21 spaces have integral torsion, across primes 2, 3, 5, and 7, including
   `Z/4`, `Z/8`, and `Z/9` examples;
 - `M(Z/5,2)` has `H_2 = Z/5`;
