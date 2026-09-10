@@ -824,10 +824,40 @@ def _materialize_family(
             computation_sketch=f"Apply the alternating 0/2 differential through degree {n} and reduce each 1x1 block.",
             tags=["2_primary", "projective", "torsion", "bc2_skeleton"],
         )
+    if formula == "complex_projective_standard_cw":
+        n = int(parameters["n"])
+        top = 2 * n
+        attaching = (
+            f"Attach e^{{2k}} to CP^(k-1) along the Hopf bundle projection "
+            f"S^(2k-1) -> CP^(k-1) for k=1..{n}"
+        )
+        if n == 2:
+            attaching += "; the 4-cell is attached to S^2 by the Hopf map eta."
+        else:
+            attaching += "."
+        return _base_spec(
+            family,
+            parameters,
+            key=f"complex_projective_space:{n}",
+            label=f"Complex projective space CP^{n}"
+            if n > 2
+            else "Complex projective plane CP^2",
+            dimension=top,
+            aliases=[f"CP^{n}", f"CP{n}"] + (["C_eta"] if n == 2 else []),
+            ranks={degree: 1 for degree in range(0, top + 1, 2)},
+            nonzero=None,
+            attaching_map=attaching,
+            boundary_formula="All cellular differentials vanish by the gaps between cell degrees.",
+            computation_sketch=(
+                f"The {n + 1} cells in even degrees 0 through {top} give one free class "
+                "in each even degree and nothing in odd degrees."
+            ),
+            tags=["torsion_free", "projective", "complex"]
+            + (["projective_plane", "hopf_invariant_one"] if n == 2 else []),
+        )
     if formula == "hopf_projective_plane":
         division_algebra = parameters["division_algebra"]
         data = {
-            "complex": ("complex_projective_space:2", "Complex projective plane CP^2", 2, 4, "eta", ["CP^2", "CP2", "C_eta"]),
             "quaternionic": ("quaternionic_projective_space:2", "Quaternionic projective plane HP^2", 4, 8, "nu", ["HP^2", "HP2", "C_nu"]),
             "octonionic": ("cayley_plane:2", "Cayley plane OP^2", 8, 16, "sigma", ["OP^2", "OP2", "C_sigma"]),
         }
@@ -1153,8 +1183,8 @@ def materialize_specs(manifest: dict[str, Any]) -> list[dict[str, Any]]:
     space_ids = [spec["key"] for spec in specs]
     if len(space_ids) != len(set(space_ids)):
         raise ValueError("chromatic corpus contains duplicate Conceptual-space IDs")
-    if len(specs) != 51:
-        raise ValueError(f"expected the curated 51-space corpus, generated {len(specs)}")
+    if len(specs) != 52:
+        raise ValueError(f"expected the curated 52-space corpus, generated {len(specs)}")
     if any(len(spec["sources"]) == 0 for spec in specs):
         raise ValueError("every chromatic space must inherit at least one source")
     return specs
@@ -2123,7 +2153,7 @@ def demo(path: Path) -> None:
         lens = tools.read_homology("L^5(3;1,1,1)")
         projective = tools.read_homology("CP^2")
         evidence = tools.expand_evidence([moore["groups"][2]["evidence_id"]])
-        print(f"Chromatic Homology Atlas ready: 51 spaces, snapshot {snapshot_id}")
+        print(f"Chromatic Homology Atlas ready: 52 spaces, snapshot {snapshot_id}")
         print(f"Scratch database: {path} (safe to delete; rebuilt on every run)\n")
         print("Quick mathematical tour")
         print(f"  M(Z/5,2): H_2 = {moore['groups'][2]['value']['display']}")
@@ -2145,7 +2175,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Chromatic Homology Atlas")
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
     subparsers = parser.add_subparsers(dest="command", required=True)
-    subparsers.add_parser("demo", help="rebuild the 51-space snapshot and show a tour")
+    subparsers.add_parser("demo", help="rebuild the 52-space snapshot and show a tour")
     tool_parser = subparsers.add_parser("tool", help="execute one stable JSON tool request")
     tool_parser.add_argument("request", help='JSON object with "tool" and "arguments"')
     args = parser.parse_args()

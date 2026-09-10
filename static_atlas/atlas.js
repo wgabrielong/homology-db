@@ -61,6 +61,7 @@
     "real_projective_space:3": "The space of lines through the origin in four-dimensional real space, equivalently the three-sphere with antipodal points identified.",
     "real_projective_space:4": "The space of lines through the origin in five-dimensional real space, equivalently the four-sphere with antipodal points identified.",
     "complex_projective_space:2": "The space of complex lines through the origin in complex three-dimensional space. It has one cell in real dimensions zero, two, and four.",
+    "complex_projective_space:3": "The space of complex lines through the origin in complex four-dimensional space. It has one cell in real dimensions zero, two, four, and six.",
     "sphere_wedge:2:4": "A two-sphere and a four-sphere joined at one chosen point. Its additive groups agree with those of the complex projective plane; its cup products do not.",
   });
   const classicalFamilyDescriptions = Object.freeze({
@@ -69,7 +70,8 @@
     wedge: "Join pointed spaces at their chosen basepoints. Wedges give simple examples where cup products carry information beyond additive groups.",
     surface: "The torus and Klein bottle illustrate orientability, torsion, and the effect of changing coefficients.",
     real_projective_space: "Real lines through the origin, or spheres with antipodal points identified. Each has one cell in every dimension up to its dimension.",
-    hopf_projective_plane: "The complex, quaternionic, and octonionic projective planes each have three cells, with different attaching maps.",
+    complex_projective_space: "Complex lines through the origin, with one cell in every even dimension. The degree-two generator has nonzero powers all the way to the top.",
+    hopf_projective_plane: "The quaternionic and octonionic projective planes each have three cells. The complex member of the same trio is the projective plane CP\u00b2, recorded with the complex projective spaces.",
   });
 
   const spacesById = new Map(conceptualSpaces.map((space) => [space.id, space]));
